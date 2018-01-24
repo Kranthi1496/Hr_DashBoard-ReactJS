@@ -5,7 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 import $ from "jquery";
-import ShowList from './ShowList';
+import ShowList from '../Admin/ShowList';
 import ShowAssignedRoles from './ShowAssignedRoles';
 //import Moment from 'moment';
  export default class Hr extends Component {
@@ -137,7 +137,7 @@ import ShowAssignedRoles from './ShowAssignedRoles';
        </ul>
       </nav>
 
-          
+
 <div className="container">
 <div className="row">
 <div className="col-md-4">

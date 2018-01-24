@@ -6,27 +6,25 @@ import {
   Route
   //Link
 } from 'react-router-dom';
-//import Header from './Header';
-import Home from './Components/Home';
-//import Contact from './Contact';
+import Home from './Components/Home/Home';
 import Register from './Components/User/Register';
 import Login from './Components/User/Login';
-import AssignRole from './Components/AssignRole';
-import Hr from './Components/Hr';
-import TaskList from './Components/TaskList';
-import AddTask from './Components/AddTask';
+import Admin from './Components/Admin/Admin';
+import Hr from './Components/Hr/Hr';
+import TaskList from './Components/Task/TaskList';
+import AddTask from './Components/Task/AddTask';
 class App extends Component {
   render() {
     return (
       <div >
       <Router>
-      <div >
+      <div>
 
 
           <Route exact path="/" component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/role" component={AssignRole} />
+          <Route path="/admin" component={Admin} />
           <Route path="/hr" component={Hr} />
           <Route path="/tasklist" component={TaskList} />
           <Route path="/addtask" component={AddTask} />

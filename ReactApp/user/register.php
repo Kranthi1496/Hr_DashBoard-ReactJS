@@ -20,6 +20,7 @@ $address=$data->address;
 $epwd=md5($upwd);
 //
 //checking username exists or not
+if($uemail !='' && $upwd !='' && $uname!='' && $dob!='' && $address!='' && $epwd!=''){
 $usql = "SELECT name FROM members where name='$uname'";
 
 $uresult = $conn->query($usql);
@@ -69,6 +70,7 @@ if($aid !=''){
 
 //echo 'success';
 echo'{"status": "OK"}';
+}
 }
 $conn->close();
 ?>

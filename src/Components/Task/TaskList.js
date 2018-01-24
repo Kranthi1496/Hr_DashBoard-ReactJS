@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import $ from "jquery";
 import ShowPreviousTasks from './ShowPreviousTasks';
-import ShowSoftwareEngineerTasks from './ShowSoftwareEngineerTasks';
  export default class Task extends Component {
    constructor(props){
      super(props);
@@ -99,15 +98,18 @@ import ShowSoftwareEngineerTasks from './ShowSoftwareEngineerTasks';
                         this.setState({designation:hresponse.designation});
                          console.log(hresponse.designation);
                              if(hresponse.designation === 'Software Engineer'){
-
+                                this.sort();
                               }
                              else if (hresponse.designation === 'Senior Software Engineer') {
                               this.setState({software_engineer:hresponse.se},function(){
+                                console.log(this.state.software_engineer);
+                                if(this.state.software_engineer !== null){
                               var selength=this.state.software_engineer.length;
                               var i;
                                  for(i=0;i<selength;i++){
                                  this.state.all_tasks.push(this.state.software_engineer[i]);
                                  }
+                               }
                                 this.setState({all_tasks:this.state.all_tasks},function(){
                                  console.log(this.state);
                                    this.sort();
@@ -118,10 +120,14 @@ import ShowSoftwareEngineerTasks from './ShowSoftwareEngineerTasks';
                              else if (hresponse.designation === 'Team Lead') {
                              console.log(hresponse.designation);
                               this.setState({software_engineer_tlead:hresponse.se,
-                                            senior_software_engineer:hresponse.sse,all_tasks:hresponse.sse});
+                                            senior_software_engineer:hresponse.sse,
+                                            all_tasks:hresponse.sse});
 
                                         //console.log(this.state);
                                         var all_tasks=this.state.all_tasks;
+                                        console.log(this.state.software_engineer_tlead);
+
+                                        if(this.state.software_engineer_tlead[0]){
                                         var selen=this.state.software_engineer_tlead.length;
                                         var a,b,c,iselen;
                                         for(a=0;a<selen;a++){
@@ -133,11 +139,14 @@ import ShowSoftwareEngineerTasks from './ShowSoftwareEngineerTasks';
                                              }
                                             }
                                          this.setState({all_tasks:all_tasks},function(){
+                                           this.sort();
                                           console.log(this.state);
                                            });
+                                         }
                               }
                             else if (hresponse.designation === 'Manager') {
                             this.setState({all_tasks:hresponse.manager},function(){
+                              this.sort();
                             console.log(this.state)});
                              }
                             else{}

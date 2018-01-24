@@ -45,7 +45,7 @@ import $ from "jquery";
                  console.log("success");
                  localStorage.setItem("id",obj.id);
                      if(obj.name === 'admin'){
-                      window.location="http://localhost:3000/role";
+                      window.location="http://localhost:3000/admin";
                       }
                      else{
                         if(res.role[0]){
