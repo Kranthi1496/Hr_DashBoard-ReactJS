@@ -14,7 +14,7 @@ $start_date = $data->start_date;
 $end_date   = $data->end_date;
 $status     = $data->status;
 
-
+if($user_id !='' && $task_title !='' && $task_desc!='' && $start_date!='' && $end_date!='' && $status!=''){
 $usql = "INSERT INTO task (user_id,task_title,task_desc,start_date,end_date,status) 
 VALUES   ('$user_id','$task_title','$task_desc','$start_date','$end_date','$status')";
                          
@@ -28,6 +28,6 @@ $uresult = $conn->query($usql);
  echo'{"status": "OK"}';
 
 
-
+}
 $conn->close();
 ?>

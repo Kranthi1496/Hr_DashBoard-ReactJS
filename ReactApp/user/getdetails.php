@@ -37,17 +37,34 @@ if ($result->num_rows > 0) {
                  array_push($authendata, $row);
 
         }
+
+        $usersql="SELECT * FROM members";
+
+        $result2=$conn->query($usersql);
+
+        $allusers=array();
+
+           if($result2->num_rows > 0){
+
+              while($row = mysqli_fetch_object($result2)) {
             
-                echo'{"status": "OK","data":'.json_encode($resdata).',"authen":'.json_encode($authendata).'}';
+                 array_push($allusers, $row);
+
+                }
+
+            }
+            
+    echo'{"status": "OK","data":'.json_encode($resdata).',"authen":'.json_encode($authendata).',"allusers":'.json_encode($allusers).'}';
+        }
       }
     
-     else{
+//      else{
         
-          echo'{"status": "OK","data":'.json_encode($resdata).'}';
-     }
+//           echo'{"status": "OK","data":'.json_encode($resdata).'}';
+//      }
      
 
-}
+// }
 
 else {
     echo'{"status": "error"}';

@@ -13,3 +13,12 @@ body {
   font-size: 20px;
   font-weight: bold;
 }
+.fs{
+  font-size: 27px;
+}
+tr:nth-of-type(odd) {
+     background-color:#ccc;
+   }
+  tr th{
+    background-color: gray;
+  }

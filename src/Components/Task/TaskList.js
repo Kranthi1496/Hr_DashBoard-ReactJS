@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import $ from "jquery";
 import ShowPreviousTasks from './ShowPreviousTasks';
+import ShowIndividualTasks from './ShowIndividualTasks';
  export default class Task extends Component {
    constructor(props){
      super(props);
@@ -18,7 +19,12 @@ import ShowPreviousTasks from './ShowPreviousTasks';
        senior_software_engineer:[],
        manager:[],
        software_engineer_tlead:[],
+       current_sse_tasks:[],
+       users_name:[],
+       all_users_name:[],
+       all_users:[],
        all_tasks:[],
+       show_tasks:[],
        user:[],
        authen:[],
        designation:''
@@ -27,6 +33,9 @@ import ShowPreviousTasks from './ShowPreviousTasks';
      this.logout=this.logout.bind(this);
      this.getprevioustasks=this.getprevioustasks.bind(this);
      this.sort=this.sort.bind(this);
+     this.taskwithname=this.taskwithname.bind(this);
+     this.getname=this.getname.bind(this);
+     this.namefilter=this.namefilter.bind(this);
     }
 
     componentDidMount(){
@@ -52,7 +61,8 @@ import ShowPreviousTasks from './ShowPreviousTasks';
                 var res=JSON.parse(response);
                console.log(res);
                if(res.status === 'OK'){
-                 this.setState({user:res.data[0],authen:res.authen[0]});
+                 this.setState({user:res.data[0],authen:res.authen[0],all_users:res.allusers});
+                 console.log(this.state);
                }
                else{console.log("error");}
         //
@@ -98,7 +108,8 @@ import ShowPreviousTasks from './ShowPreviousTasks';
                         this.setState({designation:hresponse.designation});
                          console.log(hresponse.designation);
                              if(hresponse.designation === 'Software Engineer'){
-                                this.sort();
+                                //this.sort();
+                                this.taskwithname();
                               }
                              else if (hresponse.designation === 'Senior Software Engineer') {
                               this.setState({software_engineer:hresponse.se},function(){
@@ -112,7 +123,8 @@ import ShowPreviousTasks from './ShowPreviousTasks';
                                }
                                 this.setState({all_tasks:this.state.all_tasks},function(){
                                  console.log(this.state);
-                                   this.sort();
+                                  // this.sort();
+                                  this.taskwithname();
                                         });
 
                                   });
@@ -121,11 +133,20 @@ import ShowPreviousTasks from './ShowPreviousTasks';
                              console.log(hresponse.designation);
                               this.setState({software_engineer_tlead:hresponse.se,
                                             senior_software_engineer:hresponse.sse,
-                                            all_tasks:hresponse.sse});
+                                            current_sse_tasks:hresponse.sse});
 
-                                        //console.log(this.state);
+                                        console.log(this.state.all_tasks);
                                         var all_tasks=this.state.all_tasks;
                                         console.log(this.state.software_engineer_tlead);
+
+                                        if(this.state.current_sse_tasks !== null){
+                                          var cstlen,x,y;
+                                          cstlen=this.state.current_sse_tasks.length;
+                                          for(x=0;x<cstlen;x++){
+                                            this.state.all_tasks.push(this.state.current_sse_tasks[x]);
+                                          }
+                                          this.setState({all_tasks:all_tasks});
+                                        }
 
                                         if(this.state.software_engineer_tlead[0]){
                                         var selen=this.state.software_engineer_tlead.length;
@@ -139,14 +160,16 @@ import ShowPreviousTasks from './ShowPreviousTasks';
                                              }
                                             }
                                          this.setState({all_tasks:all_tasks},function(){
-                                           this.sort();
+                                          // this.sort();
+                                          this.taskwithname();
                                           console.log(this.state);
                                            });
                                          }
                               }
                             else if (hresponse.designation === 'Manager') {
                             this.setState({all_tasks:hresponse.manager},function(){
-                              this.sort();
+                              //this.sort();
+                              this.taskwithname();
                             console.log(this.state)});
                              }
                             else{}
@@ -192,15 +215,70 @@ import ShowPreviousTasks from './ShowPreviousTasks';
 
 
   sort(){
-    var list=this.state.all_tasks;
+    var list=this.state.show_tasks;
     list.sort(function(a,b){
         var c = new Date(a.start_date);
         var d = new Date(b.start_date);
        return c-d;
         });
-        this.setState({all_tasks:list});
+        this.setState({show_tasks:list});
      }
 
+       getname(id){
+         var myid=id;
+        // console.log("inname");
+        // console.log(id);
+         var alluserslength=this.state.all_users.length;
+         var p;
+         for(p=0;p<alluserslength;p++){
+           if(this.state.all_users[p].id == myid){
+             return this.state.all_users[p].name;
+           }
+         }
+
+       }
+
+ taskwithname(){
+  var temparray=[];
+  var alltaskslength=this.state.all_tasks.length;
+  var m,n;
+    for(m=0;m<alltaskslength;m++){
+      var temp={
+        'user_id':this.state.all_tasks[m].user_id,
+        'name':this.getname(this.state.all_tasks[m].user_id),
+        'task_id':this.state.all_tasks[m].task_id,
+        'task_title':this.state.all_tasks[m].task_title,
+        'task_desc':this.state.all_tasks[m].task_desc,
+        'start_date':this.state.all_tasks[m].start_date,
+        'end_date':this.state.all_tasks[m].end_date,
+        'status':this.state.all_tasks[m].status
+      }
+      temparray.push(temp);
+
+    }
+
+    this.setState({show_tasks:temparray},function(){
+    //   console.log(this.state)
+    this.sort();
+    //this.setState({show_tasks:temparray});
+    var staskslen=this.state.show_tasks.length;
+    for(var k=0;k<staskslen;k++){
+      this.state.all_users_name.push(this.state.show_tasks[k].name);
+       }
+       this.setState({all_users_name:this.state.all_users_name});
+       this.setState({users_name:this.namefilter(this.state.all_users_name)},function(){console.log(this.state)});
+     });
+ }
+
+     namefilter(arr){
+      let unique_array = [];
+      for(let i = 0;i < arr.length; i++){
+        if(unique_array.indexOf(arr[i]) == -1){
+          unique_array.push(arr[i]);
+        }
+      }
+      return unique_array;
+     }
 
     render(){
      return(
@@ -216,9 +294,9 @@ import ShowPreviousTasks from './ShowPreviousTasks';
     <div className="container-fluid">
        <div className="row">
        <div className="col-md-4">
-       <p className="userinfo">Name:-{this.state.user.name}</p>
-       <p className="userinfo">Email:-{this.state.authen.email}</p>
-       <p className="userinfo">Designation:-{this.state.designation}</p>
+       <p className="userinfo">Name:- {this.state.user.name}</p>
+       <p className="userinfo">Email:- {this.state.authen.email}</p>
+       <p className="userinfo">Designation:- {this.state.designation}</p>
        </div>
        <div className="col-md-6">
 
@@ -228,8 +306,8 @@ import ShowPreviousTasks from './ShowPreviousTasks';
        </div>{/*first row end*/}
 
 
-
-       <ShowPreviousTasks previous_tasks={this.state.all_tasks}/>
+       <ShowIndividualTasks users_name={this.state.users_name} previous_tasks={this.state.show_tasks}/>
+       <ShowPreviousTasks previous_tasks={this.state.show_tasks}/>
 
 
 
