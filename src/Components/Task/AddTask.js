@@ -90,6 +90,9 @@ addtask(e){
               console.log(res.status);
                this.setState({status:res.status});
               //   this.getprevioustasks();
+              if(res.status === 'OK'){
+                window.location="http://localhost:3000/tasklist";
+              }
              }.bind(this),
              error: function(xhr, resp, text) {
                  console.log(xhr, resp, text);
@@ -114,6 +117,7 @@ handleChange(e){
         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
         <li><Link to="/tasklist">TaskList</Link></li>
         <li><Link to="/addtask">AddTask</Link></li>
+          <li><Link to="/leave">Leave</Link></li>
         <li><a className="pointer" onClick={this.logout}>Logout</a></li>
        </ul>
       </nav>

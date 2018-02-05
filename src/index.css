@@ -17,8 +17,22 @@ body {
   font-size: 27px;
 }
 tr:nth-of-type(odd) {
-     background-color:#ccc;
+     background-color:#7FFFD4;
+   }
+
+   tr:nth-of-type(even) {
+     background-color: #FFE4C4;
    }
   tr th{
-    background-color: gray;
+    background-color:#00BFFF;
   }
+
+  .odd:nth-of-type(odd) {
+       background-color:#00FFFF;
+     }
+     .odd:nth-of-type(even) {
+          background-color:#FFFFF0;
+        }
+      .reject{
+        margin-left: 5px;
+      }

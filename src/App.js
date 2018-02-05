@@ -13,6 +13,8 @@ import Admin from './Components/Admin/Admin';
 import Hr from './Components/Hr/Hr';
 import TaskList from './Components/Task/TaskList';
 import AddTask from './Components/Task/AddTask';
+import SendLeave from './Components/Leave/SendLeave';
+import AcceptLeave from './Components/Leave/AcceptLeave';
 class App extends Component {
   render() {
     return (
@@ -28,6 +30,8 @@ class App extends Component {
           <Route path="/hr" component={Hr} />
           <Route path="/tasklist" component={TaskList} />
           <Route path="/addtask" component={AddTask} />
+          <Route path="/leave" component={SendLeave} />
+          <Route path="/acceptleave/:name/:uid/:mid/:subject/:desc/:startdate/:enddate" component={AcceptLeave} />
       </div>
       </Router>
 

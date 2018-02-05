@@ -119,7 +119,7 @@ import $ from "jquery";
             <input type="text" className="form-control" ref="address" placeholder="Enter address" name="address" required />
           </div>
 
-          <button type="submit"  className="btn btn-default">Register</button>
+          <button type="submit"  className="btn btn-success">Register</button>
         </form>
         </div>
 </div>

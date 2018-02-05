@@ -44,6 +44,7 @@ import $ from "jquery";
                  var obj=res.data[0];
                  console.log("success");
                  localStorage.setItem("id",obj.id);
+
                      if(obj.name === 'admin'){
                       window.location="http://localhost:3000/admin";
                       }
@@ -63,6 +64,7 @@ import $ from "jquery";
                          window.location="http://localhost:3000/tasklist";
                          }
                       }
+
               }
               else if (res.status === 'email-and-password-not-matched') {
                this.setState({email_error:'email-and-password-not-matched'},function(){
@@ -113,7 +115,7 @@ import $ from "jquery";
           </div>
 
               <p>{y}</p>
-          <button type="submit"  className="btn btn-default">Login</button>
+          <button type="submit"  className="btn btn-success">Login</button>
         </form>
         </div>
 </div>

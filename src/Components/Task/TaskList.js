@@ -273,7 +273,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
      namefilter(arr){
       let unique_array = [];
       for(let i = 0;i < arr.length; i++){
-        if(unique_array.indexOf(arr[i]) == -1){
+        if(unique_array.indexOf(arr[i]) === -1){
           unique_array.push(arr[i]);
         }
       }
@@ -288,6 +288,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
         <li><Link to="/tasklist">TaskList</Link></li>
         <li><Link to="/addtask">AddTask</Link></li>
+        <li><Link to="/leave">Leave</Link></li>
          <li><a className="pointer" onClick={this.logout}>Logout</a></li>
        </ul>
       </nav>
@@ -304,7 +305,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
        <div className="col-md-2">
        </div>
        </div>{/*first row end*/}
-
+{/*f*/}
 
        <ShowIndividualTasks users_name={this.state.users_name} previous_tasks={this.state.show_tasks}/>
        <ShowPreviousTasks previous_tasks={this.state.show_tasks}/>
