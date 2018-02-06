@@ -141,7 +141,7 @@ export default class SendLeave extends Component {
 
 
 
-          <li><a className="pointer" >Notifications</a></li>
+          
           <li><a className="pointer" onClick={this.logout}>Logout</a></li>
           </ul>
 

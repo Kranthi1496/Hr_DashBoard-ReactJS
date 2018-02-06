@@ -40,32 +40,43 @@ import $ from "jquery";
               var res=JSON.parse(response);
              console.log(res);
           //    var res=response;
-              if(res.status === 'OK'){
+              if(res.status === 'OK'){//main if
                  var obj=res.data[0];
                  console.log("success");
                  localStorage.setItem("id",obj.id);
+                 var redirect=false;
+                  if(localStorage.kran != null){
+                  //  localStorage.removeItem("kran");
+                  //  console.log("came");
+                   redirect=true;
+                  }
 
+                  if(redirect){
+                   window.location=localStorage.kran;
+                  }
+                  else{
                      if(obj.name === 'admin'){
                       window.location="http://localhost:3000/admin";
                       }
                      else{
-                        if(res.role[0]){
-                        var roleobj=res.role[0];
-                        console.log(roleobj);
-                          if(roleobj.designation === 'HR'){
-                          window.location="http://localhost:3000/hr";
-                          }
-                          else{
-                           window.location="http://localhost:3000/tasklist";
-                           }
+                         if(res.role[0]){
+                             var roleobj=res.role[0];
+                             console.log(roleobj);
+                                   if(roleobj.designation === 'HR'){
+                                   window.location="http://localhost:3000/hr";
+                                    }
+                                   else{
+                                   window.location="http://localhost:3000/tasklist";
+                                    }
 
-                         }
-                        else{
-                         window.location="http://localhost:3000/tasklist";
-                         }
-                      }
+                            }
+                           else{
+                             window.location="http://localhost:3000/tasklist";
+                            }
+                        }
+                     }
 
-              }
+                 }//main if end
               else if (res.status === 'email-and-password-not-matched') {
                this.setState({email_error:'email-and-password-not-matched'},function(){
                  console.log(this.state);

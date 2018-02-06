@@ -27,6 +27,7 @@ export default class AcceptLeave extends Component {
       this.senddata=this.senddata.bind(this);
    }
    componentDidMount(){
+     localStorage.removeItem("kran");
      this.setState({user_id:localStorage.id},function(){
      this.getdetails();
    });
@@ -34,7 +35,7 @@ export default class AcceptLeave extends Component {
    acceptleave(e){
       //localStorage.removeItem("key");
      var x=e.target.id;
-     if(x == 'accept'){
+     if(x === 'accept'){
        this.setState({status:'YES'},function(){console.log(this.state.status);this.senddata();});
      }
      else{
@@ -75,7 +76,7 @@ export default class AcceptLeave extends Component {
      }//function end
    getdetails(){
    //console.log("hi");
-   if(this.state.user_id == this.props.match.params.mid){
+   if(this.state.user_id === this.props.match.params.mid){
    var leave=this.state.leave;
    leave.name=this.props.match.params.name;
    leave.uid=this.props.match.params.uid;
@@ -90,7 +91,7 @@ export default class AcceptLeave extends Component {
         }
         else {
           alert("please login");
-          // localStorage.setItem("key",'1');
+           localStorage.setItem("kran",window.location.href);
              window.location="http://localhost:3000/login";
         }
     }
