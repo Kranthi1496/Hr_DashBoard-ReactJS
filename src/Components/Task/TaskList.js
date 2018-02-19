@@ -289,6 +289,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
         <li><Link to="/tasklist">TaskList</Link></li>
         <li><Link to="/addtask">AddTask</Link></li>
         <li><Link to="/leave">Leave</Link></li>
+          <li><Link to="/chat">Chat</Link></li>
          <li><a className="pointer" onClick={this.logout}>Logout</a></li>
        </ul>
       </nav>

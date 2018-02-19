@@ -15,6 +15,7 @@ import TaskList from './Components/Task/TaskList';
 import AddTask from './Components/Task/AddTask';
 import SendLeave from './Components/Leave/SendLeave';
 import AcceptLeave from './Components/Leave/AcceptLeave';
+import Chat from './Chat/Chat.js';
 class App extends Component {
   render() {
     return (
@@ -32,6 +33,7 @@ class App extends Component {
           <Route path="/addtask" component={AddTask} />
           <Route path="/leave" component={SendLeave} />
           <Route path="/acceptleave/:name/:uid/:mid/:subject/:desc/:startdate/:enddate" component={AcceptLeave} />
+          <Route path="/chat" component={Chat} />
       </div>
       </Router>
 
