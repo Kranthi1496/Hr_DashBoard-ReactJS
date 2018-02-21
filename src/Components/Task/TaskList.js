@@ -27,7 +27,8 @@ import ShowIndividualTasks from './ShowIndividualTasks';
        show_tasks:[],
        user:[],
        authen:[],
-       designation:''
+       designation:'',
+       user_name:''
 
      };
      this.logout=this.logout.bind(this);
@@ -41,6 +42,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
     componentDidMount(){
           this.setState({user_id:localStorage.id},function(){
           this.getprevioustasks();
+        
         });
     }
 
@@ -212,7 +214,10 @@ import ShowIndividualTasks from './ShowIndividualTasks';
         window.location="http://localhost:3000/";
     }
 
-
+// currentloggedinusername = ()=>{
+//   var user_name=getname(localStorage.id);
+//   this.setState({user_name:user_name});
+// }
 
   sort(){
     var list=this.state.show_tasks;
@@ -308,7 +313,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
        </div>{/*first row end*/}
 {/*f*/}
 
-       <ShowIndividualTasks users_name={this.state.users_name} previous_tasks={this.state.show_tasks}/>
+       <ShowIndividualTasks users_name={this.state.users_name} previous_tasks={this.state.show_tasks} name={this.state.user_name}/>
        <ShowPreviousTasks previous_tasks={this.state.show_tasks}/>
 
 

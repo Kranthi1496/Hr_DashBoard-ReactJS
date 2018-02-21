@@ -2,7 +2,7 @@ import React, {Component } from 'react';
 import $ from "jquery";
 import Moment from 'moment';
 import EditTask from './EditTask';
-export default class ShowPreviousTasks extends Component {
+export default class ShowIndividualTasks extends Component {
 constructor(props){
   super(props);
   this.state={
@@ -18,7 +18,8 @@ constructor(props){
    },
    emptasks:[],
    editvar:false,
-   person_id:''
+   person_id:'',
+   show_I_Task:false
 
 
   };
@@ -79,6 +80,7 @@ constructor(props){
     this.setState({editvar:true});
   }
    gettasks(name){
+     this.setState({show_I_Task:true});
    var temparray=[];
    this.setState({emptasks:temparray});
    console.log(this.props.previous_tasks);
@@ -160,7 +162,36 @@ constructor(props){
         var y=<span></span>;
         var z=<span></span>;
       }
+       if(this.state.show_I_Task){
+         var m=   <h2 className="center">Selected User Tasks</h2>;
+        var n=  <table className="table table-bordered">
+           <thead>
+            <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start_date</th>
+            <th>End_date</th>
+            <th>Status</th>
+            </tr>
+           </thead>
+           <tbody>
+           {this.state.emptasks.map((item,i)=>{
 
+           return  <tr data-toggle="modal" data-target="#ITaskModal" data-backdrop="static" data-keyboard="false"  key={i} onClick={this.openmodal.bind(this,item)}>
+           <td>{item.user_id}</td>
+           <td>{item.name}</td>
+           <td>{item.task_title}</td>
+           <td>{item.task_desc}</td>
+           <td>{Moment(item.start_date).format('LL')}</td>
+           <td>{Moment(item.end_date).format('LL')}</td>
+           <td>{item.status}</td></tr>
+          })}
+
+          </tbody>
+        </table>;
+       }
       return(
         <div className="row">
          <div className="col-md-3">
@@ -177,34 +208,8 @@ constructor(props){
              </div>
          </div>
          <div className="col-md-9">
-           <h2 className="center">Selected User Tasks</h2>
-         <table className="table table-bordered">
-          <thead>
-           <tr>
-           <th>Id</th>
-           <th>Name</th>
-           <th>Title</th>
-           <th>Description</th>
-           <th>Start_date</th>
-           <th>End_date</th>
-           <th>Status</th>
-           </tr>
-          </thead>
-          <tbody>
-          {this.state.emptasks.map((item,i)=>{
-
-          return  <tr data-toggle="modal" data-target="#ITaskModal" data-backdrop="static" data-keyboard="false"  key={i} onClick={this.openmodal.bind(this,item)}>
-          <td>{item.user_id}</td>
-          <td>{item.name}</td>
-          <td>{item.task_title}</td>
-          <td>{item.task_desc}</td>
-          <td>{Moment(item.start_date).format('LL')}</td>
-          <td>{Moment(item.end_date).format('LL')}</td>
-          <td>{item.status}</td></tr>
-         })}
-
-         </tbody>
-       </table>
+        {m}
+        {n}
          </div>
          {/*modal start*/}
          <div id="ITaskModal" className="modal fade" role="dialog">

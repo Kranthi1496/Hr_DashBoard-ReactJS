@@ -7,10 +7,30 @@ const io = require('socket.io').listen(server);
 
 const port = 3001;
 let users = [];
+//db
+var mysql = require('mysql');
 
 
 // Socket.io connect
 io.sockets.on('connection', (socket) => {
+  //
+//console.log(socket);
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "aec"
+  });
+
+  //con.connect(function(err) {
+  //  if (err) throw err;
+  //  console.log("Connected!");
+    //Insert a record in the "customers" table:
+    //var sql = "INSERT INTO chat (sender,receiver,message) VALUES ('Company', 'Inc', 'Highway 37')";
+
+//  });
+  //db end
+  //
   // Set Username
   socket.on('set user', (data, callback) => {
     console.log('setting');
@@ -30,8 +50,26 @@ io.sockets.on('connection', (socket) => {
     var msg=data.msg;
     var sender=data.sender;
     var receiver=data.receiver;
-    io.sockets.emit('show_message', {msg: msg,sender:sender, receiver: receiver});
+    con.query("INSERT INTO `chat` (`sender`,`receiver`,`message`) VALUES ('"+sender+"','"+receiver+"','"+msg+"')", function (err, rows) {
+       if (err) throw err;
+    //  console.log("1 record inserted");
+      //console.log(rows);
+    getrecords();
+     });
+    //io.sockets.emit('show_message', {msg: msg,sender:sender, receiver: receiver});
   });
+
+  socket.on('chathistory',function(data){
+    getrecords();
+  });
+
+  function getrecords(){
+    con.query("SELECT * FROM chat", function (err, rows) {
+       if (err) throw err;
+  //     console.log(rows);
+       io.sockets.emit('show_message',rows);
+     });
+  }
 
   //whenever we closes the tab that current user will be removed from users
   socket.on('disconnect', function(data){

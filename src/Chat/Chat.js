@@ -25,12 +25,15 @@ class Chat extends Component {
       empundermanager:[],
       idandname:[],
       show_filter_messages:[],
-      receiver_name:''
+      receiver_name:'',
+      nms:[]
 
     };
 
     this.handlemessage=this.handlemessage.bind(this);
+      this.handlemsg=this.handlemsg.bind(this);
     this.handleData=this.handleData.bind(this);
+  //  this.chatHistory=this.chatHistory.bind(this);
   }
   componentWillMount(){
     this.initSocket()
@@ -41,9 +44,28 @@ class Chat extends Component {
   componentDidMount() {
 
     socket.on('users', this.handleData);
-    socket.on('show_message',this.handlemessage);
+    socket.on('show_message',this.handlemsg);
   }
 
+handlemsg(show_message){
+console.log(show_message);
+var l,len,farray=[];
+len=show_message.length;
+for(l=0;l<len;l++){
+  if(
+(((this.state.user_name === show_message[l].sender ) ||
+(this.state.user_name === show_message[l].receiver ))
+&&
+   ((this.state.receiver_name === show_message[l].receiver) ||
+     (this.state.receiver_name === show_message[l].sender )))
+){
+  farray.push(show_message[l]);
+}
+}
+      this.setState({nms:farray},function(){
+        console.log(this.state);
+      });
+}
   handlemessage(show_message){
 
     let p= this.state.show_message;
@@ -199,6 +221,10 @@ getdetails=()=>{
          }
      });
  }
+ else{
+   alert("session expired, please login");
+     window.location="http://localhost:3000/login";
+ }
 
 }//get details end
 
@@ -215,7 +241,8 @@ getname=(id)=>{
 }
 
 startchat(name){
-  this.setState({receiver_name:name,show_filter_messages:[]});
+  this.setState({receiver_name:name,nms:[]});
+  socket.emit('chathistory',{sender:this.state.user_name,receiver:this.state.receiver_name});
 }
 logout=()=>{
   localStorage.removeItem("id");
@@ -229,6 +256,14 @@ logout=()=>{
              return  <div  className="panel-body center fs pointer odd" key={i} onClick={this.startchat.bind(this,item.name)}>{item.name}</div>
            })
            }
+           </div>;
+    }
+    else{
+      var p=<div className="panel panel-default">
+
+       <div  className="panel-body center fs pointer odd" onClick={this.startchat.bind(this,this.state.manager_name)}>{this.state.manager_name}</div>
+
+           
            </div>;
     }
 
@@ -261,13 +296,13 @@ logout=()=>{
 
           <div className="panel-body">
             <form>
-             {this.state.show_filter_messages.map((item,i)=>{
+             {this.state.nms.map((item,i)=>{
 
               return  <div className={this.state.user_name === item.sender ?  'form-group pb-chat-labels-right' : 'form-group' } key={i}>
 
 
                       <p className={this.state.user_name === item.sender ?  'text-right pb-chat-labels pb-chat-labels-primary ' : 'text-left pb-chat-labels pb-chat-labels-left ' }>
-                      {item.msg}</p>
+                      {item.message}</p>
 
                       <hr />
                       <div className="clearfix"></div>

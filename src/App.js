@@ -19,7 +19,7 @@ import Chat from './Chat/Chat.js';
 class App extends Component {
   render() {
     return (
-      <div >
+      <div>
       <Router>
       <div>
 
