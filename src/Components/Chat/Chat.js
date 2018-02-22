@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import $ from "jquery";
 import io from 'socket.io-client'
-//const socketUrl = "http://localhost:3001"
 let socket = io.connect('http://localhost:3001');
 class Chat extends Component {
   constructor(props){
@@ -30,10 +29,10 @@ class Chat extends Component {
 
     };
 
-    this.handlemessage=this.handlemessage.bind(this);
-      this.handlemsg=this.handlemsg.bind(this);
+
+    this.handlemsg=this.handlemsg.bind(this);
     this.handleData=this.handleData.bind(this);
-  //  this.chatHistory=this.chatHistory.bind(this);
+
   }
   componentWillMount(){
     this.initSocket()
@@ -66,28 +65,7 @@ for(l=0;l<len;l++){
         console.log(this.state);
       });
 }
-  handlemessage(show_message){
 
-    let p= this.state.show_message;
-
-     p.push(show_message);
-
-   this.setState({show_message:p},function(){
-    console.log(this.state);
-    var filter_messages=[];
-    var show_message_length=this.state.show_message.length;
-    for(var i=0;i<show_message_length;i++){
-      if((this.state.user_name === this.state.show_message[i].sender ) ||
-       (this.state.user_name === this.state.show_message[i].receiver )){
-        filter_messages.push(this.state.show_message[i]);
-      }
-    }
-    this.setState({show_filter_messages:filter_messages},function(){
-      console.log(this.state);
-    });
-   });
-
-  }
   handleData(users){
 
     this.setState({users},function(){
@@ -103,7 +81,10 @@ for(l=0;l<len;l++){
 
 		this.setState({socket})
   }
-  sendmessage=()=>{
+  sendmessage=(e)=>{
+    var select=e.target.getAttribute('btn');
+    //console.log(e.target.value);
+    if (e.key === 'Enter' || select === 'btnclick') {
     if(this.state.user_name !==''){
       socket.emit('set user',this.state.user_name, function(data){
         console.log(data);
@@ -115,8 +96,10 @@ for(l=0;l<len;l++){
        }
 
       });
+
     }
     let message=this.refs.message.value;
+    if(message !== ''){
     this.setState({message:message},function(){
       //console.log(this.state);
       this.refs.message.value='';
@@ -124,7 +107,9 @@ for(l=0;l<len;l++){
           socket.emit('send message',{msg:this.state.message,sender:this.state.user_name,receiver:this.state.receiver_name} );
          }
         });
+      }
   }
+}
 
 getdetails=()=>{
  if(localStorage.id){
@@ -169,16 +154,16 @@ getdetails=()=>{
                         console.log(this.state);
                         var temparray=[];
                         if(this.state.designation !== 'Manager'){
-                        var temp={
+                        var tem={
                           'id':this.state.manager_id,
                           'name':this.getname(this.state.manager_id)
 
                         }
-                        temparray.push(temp);
+                        temparray.push(tem);
                         this.setState({receiver_name:temparray[0].name});
                        }
                         var empundermanagerlength=this.state.empundermanager.length;
-                        var m,n;
+                        var m;
                           for(m=0;m<empundermanagerlength;m++){
                             var temp={
                               'id':this.state.empundermanager[m].emp_id,
@@ -233,7 +218,7 @@ getname=(id)=>{
   var alluserslength=this.state.all_users.length;
   var p;
   for(p=0;p<alluserslength;p++){
-    if(this.state.all_users[p].id == myid){
+    if(this.state.all_users[p].id === myid){
       return this.state.all_users[p].name;
     }
   }
@@ -263,7 +248,7 @@ logout=()=>{
 
        <div  className="panel-body center fs pointer odd" onClick={this.startchat.bind(this,this.state.manager_name)}>{this.state.manager_name}</div>
 
-           
+
            </div>;
     }
 
@@ -287,7 +272,7 @@ logout=()=>{
         <div className="col-md-6">
          <div className="panel panel-info pb-chat-panel">
            <div className="panel panel-heading pb-chat-panel-heading">
-             <a href="#">
+             <a >
               <label id="support_label">Chat with {this.state.receiver_name}</label>
              </a>
 
@@ -296,9 +281,10 @@ logout=()=>{
 
           <div className="panel-body">
             <form>
+
              {this.state.nms.map((item,i)=>{
 
-              return  <div className={this.state.user_name === item.sender ?  'form-group pb-chat-labels-right' : 'form-group' } key={i}>
+              return  <div className={this.state.user_name === item.sender ?  'form-group pb-chat-labels-right' : 'form-group ' } key={i}>
 
 
                       <p className={this.state.user_name === item.sender ?  'text-right pb-chat-labels pb-chat-labels-primary ' : 'text-left pb-chat-labels pb-chat-labels-left ' }>
@@ -314,10 +300,10 @@ logout=()=>{
           <div className="panel-footer">
             <div className="row">
              <div className="col-xs-10">
-              <textarea className="form-control pb-chat-textarea" ref="message"  placeholder="Type your message here..."></textarea>
+              <textarea className="form-control pb-chat-textarea" ref="message" onKeyPress={this.sendmessage} placeholder="Type your message here..."></textarea>
              </div>
              <div className="col-xs-2 pb-btn-circle-div">
-               <button className="btn btn-primary btn-circle pb-chat-btn-circle" onClick={this.sendmessage}><span className="fa fa-chevron-right"></span></button>
+               <button className="btn btn-primary btn-circle pb-chat-btn-circle" btn="btnclick"  onClick={this.sendmessage}><span className="fa fa-chevron-right"></span></button>
              </div>
             </div>
            </div>

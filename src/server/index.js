@@ -22,18 +22,10 @@ io.sockets.on('connection', (socket) => {
     database: "aec"
   });
 
-  //con.connect(function(err) {
-  //  if (err) throw err;
-  //  console.log("Connected!");
-    //Insert a record in the "customers" table:
-    //var sql = "INSERT INTO chat (sender,receiver,message) VALUES ('Company', 'Inc', 'Highway 37')";
 
-//  });
-  //db end
-  //
   // Set Username
   socket.on('set user', (data, callback) => {
-    console.log('setting');
+  //  console.log('setting');
     if(users.indexOf(data) != -1){
       callback(false);
     } else {
@@ -81,6 +73,7 @@ io.sockets.on('connection', (socket) => {
 
   function updateUsers(){
     io.sockets.emit('users', users);
+    console.log(users);
   }
 });
 server.listen(port, () => {

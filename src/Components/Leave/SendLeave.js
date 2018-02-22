@@ -108,7 +108,7 @@ export default class SendLeave extends Component {
                         //   if(res.status === 'OK'){
                             alert("Leave Request Sent");
                         //  }
-                        }.bind(this),
+                        },
                         error: function(xhr, resp, text) {
                             console.log(xhr, resp, text);
                            }
@@ -138,10 +138,10 @@ export default class SendLeave extends Component {
          <li><Link to="/tasklist">TaskList</Link></li>
          <li><Link to="/addtask">AddTask</Link></li>
          <li><Link to="/leave">Leave</Link></li>
+        <li><Link to="/chat">Chat</Link></li>
 
 
 
-          
           <li><a className="pointer" onClick={this.logout}>Logout</a></li>
           </ul>
 

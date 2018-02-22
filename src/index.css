@@ -95,3 +95,7 @@ tr:nth-of-type(odd) {
         padding-left: 0px;
         margin-top: 12px;
       }
+      .scroll{
+        overflow: scroll;
+        height: 200px;
+      }

@@ -53,7 +53,7 @@ constructor(props){
             if(res.status === 'OK'){
               window.location="http://localhost:3000/tasklist";
             }
-           }.bind(this),
+           },
            error: function(xhr, resp, text) {
                console.log(xhr, resp, text);
            }
@@ -85,7 +85,7 @@ constructor(props){
    this.setState({emptasks:temparray});
    console.log(this.props.previous_tasks);
    var len=this.props.previous_tasks.length;
-   var i,j;
+   var i;
     for(i=0;i<len;i++){
      if(this.props.previous_tasks[i].name === name){
         temparray.push(this.props.previous_tasks[i]);
@@ -110,10 +110,7 @@ constructor(props){
   }
 
   render(){
-    const divStyle = {
-   color: 'blue'
 
-    };
     var stdetails=<table className="table table-bordered">
      <tbody>
      <tr className="info">

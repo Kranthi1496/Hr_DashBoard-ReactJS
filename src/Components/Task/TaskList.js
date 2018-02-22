@@ -42,7 +42,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
     componentDidMount(){
           this.setState({user_id:localStorage.id},function(){
           this.getprevioustasks();
-        
+
         });
     }
 
@@ -142,7 +142,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
                                         console.log(this.state.software_engineer_tlead);
 
                                         if(this.state.current_sse_tasks !== null){
-                                          var cstlen,x,y;
+                                          var cstlen,x;
                                           cstlen=this.state.current_sse_tasks.length;
                                           for(x=0;x<cstlen;x++){
                                             this.state.all_tasks.push(this.state.current_sse_tasks[x]);
@@ -152,7 +152,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
 
                                         if(this.state.software_engineer_tlead[0]){
                                         var selen=this.state.software_engineer_tlead.length;
-                                        var a,b,c,iselen;
+                                        var a,b,iselen;
                                         for(a=0;a<selen;a++){
                                          iselen=this.state.software_engineer_tlead[a].length;
                                           for(b=0;b<iselen;b++){
@@ -236,7 +236,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
          var alluserslength=this.state.all_users.length;
          var p;
          for(p=0;p<alluserslength;p++){
-           if(this.state.all_users[p].id == myid){
+           if(this.state.all_users[p].id === myid){
              return this.state.all_users[p].name;
            }
          }
@@ -246,7 +246,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
  taskwithname(){
   var temparray=[];
   var alltaskslength=this.state.all_tasks.length;
-  var m,n;
+  var m;
     for(m=0;m<alltaskslength;m++){
       var temp={
         'user_id':this.state.all_tasks[m].user_id,

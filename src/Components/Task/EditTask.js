@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import $ from "jquery";
-import Moment from 'moment';
+//import Moment from 'moment';
 export default class EditTask extends Component {
   constructor(props){
     super(props);

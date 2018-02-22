@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2018 at 01:57 PM
+-- Generation Time: Feb 22, 2018 at 02:00 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -58,7 +58,31 @@ INSERT INTO `authentication` (`aid`, `name`, `email`, `password`) VALUES
 (69, 'anurag', 'anurag@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
 (73, 'shyam', 'shyam@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
 (74, 'ashutosh', 'ashutosh@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
-(75, 'sharan', 'sharan@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
+(75, 'sharan', 'sharan@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(76, 'pramod', 'pramod@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `sender` varchar(200) NOT NULL,
+  `receiver` varchar(200) NOT NULL,
+  `message` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`sender`, `receiver`, `message`) VALUES
+('varun', 'pavan', 'hi pavan'),
+('pavan', 'varun', 'hi varun'),
+('pavan', 'varun', 'project status'),
+('varun', 'pavan', 'project status'),
+('varun', 'pavan', 'hi');
 
 -- --------------------------------------------------------
 
@@ -94,7 +118,8 @@ INSERT INTO `leaverequest` (`uid`, `mid`, `subject`, `description`, `startdate`,
 (52, 61, 'Leave plan in feb', 'personal work', '2018-02-07', '2018-02-08', 'NO'),
 (60, 58, 'personal day off', 'personal problem', '2018-02-06', '2018-02-20', 'YES'),
 (60, 58, 'leave plan in feb', 'personal work', '2018-02-06', '2018-02-07', 'YES'),
-(60, 58, 'Half day leave', 'personal work', '2018-02-07', '2018-02-08', 'NO');
+(60, 58, 'Half day leave', 'personal work', '2018-02-07', '2018-02-08', 'NO'),
+(59, 57, 'Leave Plan in March', 'Personal work', '2018-03-01', '2018-03-03', 'YES');
 
 -- --------------------------------------------------------
 
@@ -132,7 +157,8 @@ INSERT INTO `members` (`id`, `name`, `dob`, `address`) VALUES
 (69, 'anurag', '1988-02-19', 'Bangalore'),
 (73, 'shyam', '1995-02-06', 'Hyderabad'),
 (74, 'ashutosh', '1994-01-03', 'Hyderabad'),
-(75, 'sharan', '1991-02-05', 'Bangalore');
+(75, 'sharan', '1991-02-05', 'Bangalore'),
+(76, 'pramod', '1992-06-09', 'Hyderabad');
 
 -- --------------------------------------------------------
 
@@ -168,7 +194,8 @@ INSERT INTO `role` (`emp_id`, `designation`, `manager_id`) VALUES
 (69, 'Senior Software Engineer', 68),
 (73, 'Software Engineer', 62),
 (74, 'Software Engineer', 62),
-(75, 'HR', 54);
+(75, 'HR', 54),
+(76, 'Software Engineer', 53);
 
 -- --------------------------------------------------------
 
@@ -197,7 +224,7 @@ INSERT INTO `task` (`user_id`, `task_id`, `task_title`, `task_desc`, `start_date
 (60, 6, 'Employee portal', 'Adding tasks ', '2018-01-01', '2018-12-31', 'INPROGRESS', 'ADDED'),
 (59, 7, 'Payment Billing Product Project', 'An Institute having different branches at different locations, want to control and maintain the accountant salary and students personal and payment details.', '2017-11-01', '2018-01-01', 'FINISHED', 'ADDED'),
 (63, 8, 'Online Quiz Project', 'It provides a common platform to connect student and teacher online.', '2018-01-03', '2018-01-31', 'INPROGRESS', 'ADDED'),
-(58, 9, 'Online_Library ', 'A library management software', '2017-07-01', '2017-09-01', 'FINISHED', 'ADDED'),
+(58, 9, 'Online_Library ', 'A library management software', '2017-07-01', '2017-09-01', 'FINISHED', 'MODIFIED'),
 (57, 10, 'Online Exam System', 'In this project, there are given 10 questions to play.', '2017-11-01', '2017-12-01', 'FINISHED', 'ADDED'),
 (53, 11, 'Exam System', 'A library management software ', '2018-01-01', '2018-01-31', 'INPROGRESS', 'ADDED'),
 (62, 12, 'Fee Report', 'A fee report software ', '2018-01-20', '2018-02-28', 'INPROGRESS', 'ADDED'),
@@ -208,7 +235,10 @@ INSERT INTO `task` (`user_id`, `task_id`, `task_title`, `task_desc`, `start_date
 (52, 23, 'Streaming analytics', 'This is a new type of transactional system that analyzes data bit by bit as you shunt it into an analytical system in parallel.', '2017-11-01', '2017-12-01', 'FINISHED', 'ADDED'),
 (52, 24, 'Data consolidation', 'The idea is you have disparate data sources, and you want to perform analysis across them. ', '2018-01-01', '2018-01-30', 'FINISHED', 'ADDED'),
 (60, 25, 'Fee_Report_Software', 'A fee report software where admin can add,view,delete accountant and accountant can add,view,edit,delete student, check due fee and logout.', '2018-02-03', '2018-02-28', 'INPROGRESS', 'ADDED'),
-(52, 26, 'NodeJs_Project', 'Created chat application.', '2018-02-09', '2018-02-28', 'INPROGRESS', 'MODIFIED');
+(52, 26, 'NodeJs_Project', 'Created chat application.', '2018-02-09', '2018-02-28', 'INPROGRESS', 'MODIFIED'),
+(76, 27, 'Firebase_Project', 'CURD operations.', '2018-01-01', '2018-02-01', 'FINISHED', 'ADDED'),
+(61, 28, 'Payment Billing Product Project', 'Technologies used:JSP, Javascript, Ajax', '2018-01-03', '2018-02-07', 'FINISHED', 'ADDED'),
+(60, 29, 'copy board', 'chrome extension tool.', '2018-01-10', '2018-02-13', 'FINISHED', 'MODIFIED');
 
 --
 -- Indexes for dumped tables
@@ -246,12 +276,12 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT for table `authentication`
 --
 ALTER TABLE `authentication`
-  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;COMMIT;
+  MODIFY `task_id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

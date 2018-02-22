@@ -4,7 +4,7 @@ import $ from "jquery";
 import {
 //  BrowserRouter as Router,
 //  Route,
-  Link
+//  Link
 } from 'react-router-dom';
 export default class AcceptLeave extends Component {
   constructor(props){
@@ -67,7 +67,7 @@ export default class AcceptLeave extends Component {
                  window.location="http://localhost:3000/tasklist";
                 }
 
-               }.bind(this),
+               },
                error: function(xhr, resp, text) {
                    console.log(xhr, resp, text);
                }

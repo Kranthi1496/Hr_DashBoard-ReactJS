@@ -15,7 +15,7 @@ import TaskList from './Components/Task/TaskList';
 import AddTask from './Components/Task/AddTask';
 import SendLeave from './Components/Leave/SendLeave';
 import AcceptLeave from './Components/Leave/AcceptLeave';
-import Chat from './Chat/Chat.js';
+import Chat from './Components/Chat/Chat.js';
 class App extends Component {
   render() {
     return (
