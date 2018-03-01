@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
 import $ from "jquery";
-import {
-//  BrowserRouter as Router,
-//  Route,
-//  Link
-} from 'react-router-dom';
+
 export default class AcceptLeave extends Component {
   constructor(props){
     super(props);

@@ -1,8 +1,6 @@
 import React, {Component } from 'react';
 import $ from "jquery";
 import {
-//  BrowserRouter as Router,
-//  Route,
   Link
 } from 'react-router-dom';
 export default class SendLeave extends Component {
@@ -17,7 +15,8 @@ export default class SendLeave extends Component {
           start_date:'',
           end_date:''
         },
-        manager_id:''
+        manager_id:'',
+        manager_not_exists:false
 
       };
       this.logout=this.logout.bind(this);
@@ -42,11 +41,12 @@ export default class SendLeave extends Component {
                                      }),
              success: function(response) {
                //console.log(response);
-               var res=JSON.parse(response);
-              console.log(res.status);
+              var res=JSON.parse(response);
+             console.log(res.status);
               if(res.status === 'OK'){
                 this.setState({manager_id:res.data[0].manager_id,user_name:res.name[0].name});
               }
+
 
              }.bind(this),
              error: function(xhr, resp, text) {
@@ -129,21 +129,19 @@ export default class SendLeave extends Component {
      }
     render(){
 
+
      return(
        <div>
        <nav className="navbar navbar-inverse">
-
-        <ul className="nav navbar-nav">
-         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
-         <li><Link to="/tasklist">TaskList</Link></li>
-         <li><Link to="/addtask">AddTask</Link></li>
-         <li><Link to="/leave">Leave</Link></li>
+       <ul className="nav navbar-nav">
+        <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
+        <li><Link to="/tasklist">TaskList</Link></li>
+        <li><Link to="/addtask">AddTask</Link></li>
+        <li><Link to="/leave">Leave</Link></li>
         <li><Link to="/chat">Chat</Link></li>
+        <li><a className="pointer" onClick={this.logout}>Logout</a></li>
+       </ul>
 
-
-
-          <li><a className="pointer" onClick={this.logout}>Logout</a></li>
-          </ul>
 
        </nav>
       <div className="container">

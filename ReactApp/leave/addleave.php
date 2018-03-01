@@ -28,5 +28,8 @@ $result = $conn->query($sql);
 
  echo'{"status": "OK"}';
 }
+else {
+    echo'{"status": "error"}';
+} 
 $conn->close();
 ?>

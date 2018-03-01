@@ -1,7 +1,5 @@
 import React, {Component } from 'react';
 import {
-//  BrowserRouter as Router,
-//  Route,
   Link
 } from 'react-router-dom';
 import $ from "jquery";
@@ -286,17 +284,29 @@ import ShowIndividualTasks from './ShowIndividualTasks';
      }
 
     render(){
+      var m;
+      if(this.state.designation !== ''){
+         m=<ul className="nav navbar-nav">
+         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
+         <li><Link to="/tasklist">TaskList</Link></li>
+         <li><Link to="/addtask">AddTask</Link></li>
+         <li><Link to="/leave">Leave</Link></li>
+           <li><Link to="/chat">Chat</Link></li>
+          <li><a className="pointer" onClick={this.logout}>Logout</a></li>
+        </ul>;
+      }
+      else{
+        m=<ul className="nav navbar-nav">
+         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
+         <li><Link to="/tasklist">TaskList</Link></li>
+         <li><Link to="/addtask">AddTask</Link></li>
+        <li><a className="pointer" onClick={this.logout}>Logout</a></li>
+        </ul>;
+      }
      return(
       <div>
       <nav className="navbar navbar-inverse">
-       <ul className="nav navbar-nav">
-        <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
-        <li><Link to="/tasklist">TaskList</Link></li>
-        <li><Link to="/addtask">AddTask</Link></li>
-        <li><Link to="/leave">Leave</Link></li>
-          <li><Link to="/chat">Chat</Link></li>
-         <li><a className="pointer" onClick={this.logout}>Logout</a></li>
-       </ul>
+       {m}
       </nav>
     <div className="container-fluid">
        <div className="row">

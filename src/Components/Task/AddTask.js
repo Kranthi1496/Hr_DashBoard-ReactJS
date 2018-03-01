@@ -1,7 +1,5 @@
 import React, {Component } from 'react';
 import {
-//  BrowserRouter as Router,
-//  Route,
   Link
 } from 'react-router-dom';
 import $ from "jquery";
@@ -17,7 +15,8 @@ export default class AddTask extends Component {
         startdate:'',
         enddate:''
       },
-      date_error:''
+      date_error:'',
+      manager_exists:false
     };
     this.logout=this.logout.bind(this);
     this.handleChange=this.handleChange.bind(this);
@@ -30,10 +29,35 @@ componentWillMount(){
 checkid(){
    if(localStorage.id){
      console.log(localStorage.id);
-     this.setState({user_id:localStorage.id});
+     this.setState({user_id:localStorage.id},function(){
 
 
 
+
+       $.ajax({
+             url: "http://localhost:8080/ReactApp/leave/getmanagerid.php",
+             type: "POST",
+             contentType: 'application/json',
+             data: JSON.stringify({
+                                 'user_id':this.state.user_id
+
+                                     }),
+             success: function(response) {
+               //console.log(response);
+              var res=JSON.parse(response);
+             console.log(res.status);
+              if(res.status === 'OK'){
+                this.setState({manager_exists:true});
+              }
+
+
+             }.bind(this),
+             error: function(xhr, resp, text) {
+                 console.log(xhr, resp, text);
+             }
+         });
+
+   });
 
  }//if end
  else {
@@ -110,17 +134,29 @@ handleChange(e){
      });
 }
     render(){
+      var m;
+      if(this.state.manager_exists){
+        m=<ul className="nav navbar-nav">
+         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
+         <li><Link to="/tasklist">TaskList</Link></li>
+         <li><Link to="/addtask">AddTask</Link></li>
+        <li><Link to="/leave">Leave</Link></li>
+        <li><Link to="/chat">Chat</Link></li>
+         <li><a className="pointer" onClick={this.logout}>Logout</a></li>
+        </ul>;
+      }
+      else{
+        m=<ul className="nav navbar-nav">
+         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
+         <li><Link to="/tasklist">TaskList</Link></li>
+         <li><Link to="/addtask">AddTask</Link></li>
+         <li><a className="pointer" onClick={this.logout}>Logout</a></li>
+        </ul>;
+      }
      return(
       <div>
       <nav className="navbar navbar-inverse">
-       <ul className="nav navbar-nav">
-        <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
-        <li><Link to="/tasklist">TaskList</Link></li>
-        <li><Link to="/addtask">AddTask</Link></li>
-          <li><Link to="/leave">Leave</Link></li>
-            <li><Link to="/chat">Chat</Link></li>
-        <li><a className="pointer" onClick={this.logout}>Logout</a></li>
-       </ul>
+        {m}
       </nav>
       <div className="container">
       <div className="row">

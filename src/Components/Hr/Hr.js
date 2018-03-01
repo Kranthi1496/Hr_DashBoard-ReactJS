@@ -26,7 +26,7 @@ import ShowAssignedRoles from './ShowAssignedRoles';
      this.logout=this.logout.bind(this);
      this.getusers=this.getusers.bind(this);
      this.assign_role=this.assign_role.bind(this);
-       this.handleChange=this.handleChange.bind(this);
+     this.handleChange=this.handleChange.bind(this);
     }
     //role submit//
    assign_role(e){
@@ -45,7 +45,7 @@ import ShowAssignedRoles from './ShowAssignedRoles';
       //  this.refs.designation.value='';
         this.refs.manager.value='';
         $.ajax({
-              url: "http://localhost:8080/ReactApp/role/assignrole.php",
+              url: "http://localhost:8080/ReactApp/role/assignrolehr.php",
               type: "POST",
               //contentType: 'application/json',
               data: JSON.stringify({
@@ -133,7 +133,7 @@ import ShowAssignedRoles from './ShowAssignedRoles';
        <ul className="nav navbar-nav">
         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
         <li><Link to="/hr">Hr</Link></li>
-         <li><a className="pointer" onClick={this.logout}>Logout</a></li>
+        <li><a className="pointer" onClick={this.logout}>Logout</a></li>
        </ul>
       </nav>
 

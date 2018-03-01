@@ -35,3 +35,8 @@ if ($result->num_rows > 0) {
      }
    
 }
+else{
+    echo'{"status": "error"}';
+}
+$conn->close();
+?>

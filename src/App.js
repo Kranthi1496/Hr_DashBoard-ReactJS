@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -15,15 +14,13 @@ import TaskList from './Components/Task/TaskList';
 import AddTask from './Components/Task/AddTask';
 import SendLeave from './Components/Leave/SendLeave';
 import AcceptLeave from './Components/Leave/AcceptLeave';
-import Chat from './Components/Chat/Chat.js';
+import Chat from './Components/Chat/Chat';
 class App extends Component {
   render() {
     return (
       <div>
       <Router>
-      <div>
-
-
+       <div>
           <Route exact path="/" component={Home} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
@@ -34,7 +31,7 @@ class App extends Component {
           <Route path="/leave" component={SendLeave} />
           <Route path="/acceptleave/:name/:uid/:mid/:subject/:desc/:startdate/:enddate" component={AcceptLeave} />
           <Route path="/chat" component={Chat} />
-      </div>
+       </div>
       </Router>
 
       </div>
