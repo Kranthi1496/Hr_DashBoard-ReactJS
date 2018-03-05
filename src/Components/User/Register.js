@@ -85,7 +85,7 @@ import $ from "jquery";
       }
      return(
        <div>
-       <nav className="navbar navbar-inverse">
+       <nav className="navbar navbar-default">
         <ul className="nav navbar-nav">
          <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
 

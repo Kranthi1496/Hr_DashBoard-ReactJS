@@ -14,7 +14,7 @@ class Home extends Component {
   render(){
     return(
       <div>
-       <nav className="navbar navbar-inverse">
+       <nav className="navbar navbar-default">
         <ul className="nav navbar-nav">
          <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
          <li><Link to="/register">Register</Link></li>

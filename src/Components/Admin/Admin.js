@@ -41,6 +41,7 @@ import ShowAssignedHrRoles from './ShowAssignedHrRoles';
         this.refs.id.value='';
         //this.refs.designation.value='';
         //this.refs.manager.value='';
+        if(this.state.emprole.empid !=='54'){
         $.ajax({
               url: "http://localhost:8080/ReactApp/role/assignrole.php",
               type: "POST",
@@ -61,6 +62,7 @@ import ShowAssignedHrRoles from './ShowAssignedHrRoles';
                   console.log(xhr, resp, text);
               }
           });
+        }
       }
 
 
@@ -137,7 +139,7 @@ import ShowAssignedHrRoles from './ShowAssignedHrRoles';
     render(){
      return(
       <div>
-      <nav className="navbar navbar-inverse">
+      <nav className="navbar navbar-default">
        <ul className="nav navbar-nav">
         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
         <li><Link to="/admin">Admin</Link></li>

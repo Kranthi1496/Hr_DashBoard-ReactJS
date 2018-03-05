@@ -23,13 +23,12 @@ class Chat extends Component {
       idandname:[],
       show_filter_messages:[],
       receiver_name:'',
-      nms:[]
+      current_user_chat:[]
 
     };
 
 
     this.handlemsg=this.handlemsg.bind(this);
-    this.handleData=this.handleData.bind(this);
 
   }
   componentWillMount(){
@@ -39,37 +38,25 @@ class Chat extends Component {
 
   }
   componentDidMount() {
-
-    socket.on('users', this.handleData);
     socket.on('show_message',this.handlemsg);
   }
 
 handlemsg(show_message){
-console.log(show_message);
+//console.log(show_message);
 var l,len,farray=[];
 len=show_message.length;
 for(l=0;l<len;l++){
   if(
-(((this.state.user_name === show_message[l].sender ) ||
-(this.state.user_name === show_message[l].receiver ))
-&&
-   ((this.state.receiver_name === show_message[l].receiver) ||
-     (this.state.receiver_name === show_message[l].sender )))
-){
-  farray.push(show_message[l]);
-}
-}
-      this.setState({nms:farray},function(){
-        console.log(this.state);
+   (((this.state.user_name === show_message[l].sender ) || (this.state.user_name === show_message[l].receiver )) &&
+   ((this.state.receiver_name === show_message[l].receiver) ||    (this.state.receiver_name === show_message[l].sender )))
+    ){
+     farray.push(show_message[l]);
+     }
+ }
+      this.setState({current_user_chat:farray},function(){
+    //    console.log(this.state);
       });
 }
-
-  handleData(users){
-
-    this.setState({users},function(){
-      console.log(this.state);
-    });
-  }
 
   initSocket = ()=>{
 
@@ -83,24 +70,11 @@ for(l=0;l<len;l++){
     var select=e.target.getAttribute('btn');
     //console.log(e.target.value);
     if (e.key === 'Enter' || select === 'btnclick') {
-    if(this.state.user_name !==''){
-      socket.emit('set user',this.state.user_name, function(data){
-        console.log(data);
-       if(data){
-
-       }
-       else{
-
-       }
-
-      });
-
-    }
     let message=this.refs.message.value;
-    if(message !== ''){
-    this.setState({message:message},function(){
+      if(message !== ''){
+        this.setState({message:message},function(){
       //console.log(this.state);
-      this.refs.message.value='';
+          this.refs.message.value='';
         if(this.state.message !=='' && this.state.user_name !=='' && this.state.receiver_name !==''){
           socket.emit('send message',{msg:this.state.message,sender:this.state.user_name,receiver:this.state.receiver_name} );
          }
@@ -149,7 +123,7 @@ getdetails=()=>{
                     if(res1.status === 'OK'){
               //        console.log(res1);
                       this.setState({empundermanager:res1.emp},function(){
-                        console.log(this.state);
+                    //    console.log(this.state);
                         var temparray=[];
                         if(this.state.designation !== 'Manager'){
                         var tem={
@@ -172,7 +146,7 @@ getdetails=()=>{
 
                           }
                           this.setState({idandname:temparray},function () {
-                            console.log(this.state);
+                      //      console.log(this.state);
                           })
                       }
 
@@ -224,7 +198,7 @@ getname=(id)=>{
 }
 
 startchat(name){
-  this.setState({receiver_name:name,nms:[]});
+  this.setState({receiver_name:name,current_user_chat:[]});
   socket.emit('chathistory',{sender:this.state.user_name,receiver:this.state.receiver_name});
 }
 logout=()=>{
@@ -232,8 +206,9 @@ logout=()=>{
     window.location="http://localhost:3000/";
 }
   render() {
+    var p;
     if(this.state.designation !== 'Software Engineer'){
-      var p=  <div className="panel panel-default">
+       p=  <div className="panel panel-default">
               {this.state.idandname.map((item,i)=>{
 
              return  <div  className="panel-body center fs pointer odd" key={i} onClick={this.startchat.bind(this,item.name)}>{item.name}</div>
@@ -242,7 +217,7 @@ logout=()=>{
            </div>;
     }
     else{
-      var p=<div className="panel panel-default">
+       p=<div className="panel panel-default">
 
        <div  className="panel-body center fs pointer odd" onClick={this.startchat.bind(this,this.state.manager_name)}>{this.state.manager_name}</div>
 
@@ -252,7 +227,7 @@ logout=()=>{
 
     return (
       <div>
-      <nav className="navbar navbar-inverse">
+      <nav className="navbar navbar-default">
        <ul className="nav navbar-nav">
         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
         <li><Link to="/tasklist">TaskList</Link></li>
@@ -270,7 +245,7 @@ logout=()=>{
         <div className="col-md-6">
          <div className="panel panel-info pb-chat-panel">
            <div className="panel panel-heading pb-chat-panel-heading">
-             <a >
+             <a>
               <label id="support_label">Chat with {this.state.receiver_name}</label>
              </a>
 
@@ -280,7 +255,7 @@ logout=()=>{
           <div className="panel-body">
             <form>
 
-             {this.state.nms.map((item,i)=>{
+             {this.state.current_user_chat.map((item,i)=>{
 
               return  <div className={this.state.user_name === item.sender ?  'form-group pb-chat-labels-right' : 'form-group ' } key={i}>
 

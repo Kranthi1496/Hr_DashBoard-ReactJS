@@ -91,7 +91,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
                     }
             //hierarchy api
                   if(res.status){
-                   console.log("entered");
+                  // console.log("entered");
                      $.ajax({
                       url: "http://localhost:8080/ReactApp/task/hierarchy.php",
                       type: "POST",
@@ -305,7 +305,7 @@ import ShowIndividualTasks from './ShowIndividualTasks';
       }
      return(
       <div>
-      <nav className="navbar navbar-inverse">
+      <nav className="navbar navbar-default">
        {m}
       </nav>
     <div className="container-fluid">

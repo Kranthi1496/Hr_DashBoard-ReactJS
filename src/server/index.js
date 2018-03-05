@@ -23,19 +23,6 @@ io.sockets.on('connection', (socket) => {
   });
 
 
-  // Set Username
-  socket.on('set user', (data, callback) => {
-  //  console.log('setting');
-    if(users.indexOf(data) != -1){
-      callback(false);
-    } else {
-      callback(true);
-      socket.username = data;
-      users.push(socket.username);
-      updateUsers();
-    }
-  });
-
   socket.on('send message', function(data){
     //To broadcast an event to all the clients, we can use the io.sockets.emit method.
     console.log(data);
@@ -63,18 +50,6 @@ io.sockets.on('connection', (socket) => {
      });
   }
 
-  //whenever we closes the tab that current user will be removed from users
-  socket.on('disconnect', function(data){
-    //if socket.username is empty i.e., socket.username=='' it will return
-    if(!socket.username) return;
-    users.splice(users.indexOf(socket.username), 1);
-    updateUsers();
-  });
-
-  function updateUsers(){
-    io.sockets.emit('users', users);
-    console.log(users);
-  }
 });
 server.listen(port, () => {
   console.log('Server started on port '+port);

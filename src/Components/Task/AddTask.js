@@ -155,7 +155,7 @@ handleChange(e){
       }
      return(
       <div>
-      <nav className="navbar navbar-inverse">
+      <nav className="navbar navbar-default">
         {m}
       </nav>
       <div className="container">

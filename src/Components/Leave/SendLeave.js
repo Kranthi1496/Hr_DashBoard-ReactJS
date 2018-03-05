@@ -132,7 +132,7 @@ export default class SendLeave extends Component {
 
      return(
        <div>
-       <nav className="navbar navbar-inverse">
+       <nav className="navbar navbar-default">
        <ul className="nav navbar-nav">
         <li><Link to="/"><i className="fa fa-home"></i> Home</Link></li>
         <li><Link to="/tasklist">TaskList</Link></li>
@@ -159,11 +159,11 @@ export default class SendLeave extends Component {
          </div>
          <div className="form-group">
           <label> Start Date:</label>
-          <input type="date" className="form-control" ref="startdate" required/>
+          <input type="date" min="2018-03-02" className="form-control" ref="startdate" required/>
          </div>
          <div className="form-group">
           <label> End Date:</label>
-          <input type="date" className="form-control" ref="enddate"  required/>
+          <input type="date" min="2018-03-02" className="form-control" ref="enddate"  required/>
 
          </div>
 

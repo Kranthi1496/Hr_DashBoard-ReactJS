@@ -140,24 +140,25 @@ constructor(props){
      </tr>
     </tbody>
   </table>;
+  var x,y,z;
     if(this.state.person_id === this.state.selectedtask.emp_id){
 
       if(this.state.editvar === true ){
-        var x=<EditTask selectedtask={this.state.selectedtask}/>;
-        var y=<span></span>;
-        var z=<span></span>;
+         x=<EditTask selectedtask={this.state.selectedtask}/>;
+         y=<span></span>;
+         z=<span></span>;
        }
       else{
-        var x=stdetails;
-        var y=<button type="button" className="btn btn-primary" onClick={this.editfunction}>Edit</button>;
-        var z=<button type="button" className="btn btn-danger" onClick={this.deleteTask}>Remove</button>;
+         x=stdetails;
+         y=<button type="button" className="btn btn-primary" onClick={this.editfunction}>Edit</button>;
+         z=<button type="button" className="btn btn-danger" onClick={this.deleteTask}>Remove</button>;
        }
 
      }
      else{
-        var x=stdetails;
-        var y=<span></span>;
-        var z=<span></span>;
+         x=stdetails;
+         y=<span></span>;
+         z=<span></span>;
       }
        if(this.state.show_I_Task){
          var m=   <h2 className="center">Selected User Tasks</h2>;
